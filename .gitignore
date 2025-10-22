@@ -3,6 +3,4 @@ bin
 obj
 .old
 .bak
-.vscode/
-.sln
-.vs/
+.vscode
