@@ -7,4 +7,4 @@ public enum Role
     Moderator,
     Admin,
     Owner
-} // Role
+}

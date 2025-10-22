@@ -1,42 +1,27 @@
-﻿using ApiFactory.Models.Entities;
-using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using Backend.Models.Entity;
 
 namespace Backend.Models.Configurations;
 
-
-// таблица для паролей
-    public class ReviewConfiguration : IEntityTypeConfiguration<Review>
+public class ReviewConfiguration : IEntityTypeConfiguration<Review>
+{
+    public void Configure(EntityTypeBuilder<Review> builder)
     {
-       // конфигурируем
-      public void Configure(EntityTypeBuilder<Review> builder)
-    {
-
-
-        // связь
+        // Make the Account foreign key connection
         builder.HasOne(s => s.Account)
                .WithMany(s => s.Reviews)
                .HasForeignKey(p => p.AccountId);
-               
-
-        // для unicode
-        // описание
-        builder
-             .Property(p => p.Text)
-             .HasMaxLength(2048)
-             .IsUnicode()
-             .IsRequired();
 
 
+        // Unicode support
+        builder.Property(p => p.Text)
+               .HasMaxLength(2048)
+               .IsUnicode()
+               .IsRequired();
 
-        // для отображение после мяшкого удаления
+
+        // Show only active
         builder.HasQueryFilter(s => !s.IsDeleted);
-    } // Configure
-    } // LoginConfiguration
-
+    }
+}

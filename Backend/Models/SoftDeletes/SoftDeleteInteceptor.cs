@@ -5,10 +5,9 @@ namespace ApiFactory.Models.SoftDeletes;
 // Здесь мы будем переопределять поведения удаления
 // то есть если какая то сущность имеет поля и от наследовалась
 // то к ней будем применено виртуальное удаление или мягкое удаление
+
 public class SoftDeleteInterceptor : SaveChangesInterceptor
-{    
-    // переопределяем метод сохранения изменений
-    // для синхронного метода
+{
     public override InterceptionResult<int> SavingChanges(
         DbContextEventData eventData,
         InterceptionResult<int> result)
@@ -37,7 +36,7 @@ public class SoftDeleteInterceptor : SaveChangesInterceptor
         // здесь проверяем что если заданный контекст пустой
         if (eventData.Context is null) return ValueTask.FromResult(result);
 
-       
+
         // дальше проходимся по всем сущностям в контексте
         foreach (var entry in eventData.Context.ChangeTracker.Entries())
         {
@@ -54,4 +53,3 @@ public class SoftDeleteInterceptor : SaveChangesInterceptor
 
     } // SavingChangesAsync
 } // SoftDeleteInterceptor
-

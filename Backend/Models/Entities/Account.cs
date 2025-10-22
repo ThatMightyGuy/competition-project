@@ -1,49 +1,35 @@
-﻿ using ApiFactory.Models.Configuration;
-using Backend.Models.;
-using Backend.Models.;
-using Backend.Models.Configurations;
+﻿using System.ComponentModel.DataAnnotations;
+using Microsoft.EntityFrameworkCore;
 using Backend.Models.Entity;
 using Backend.Models.SoftDeletes;
-using Microsoft.EntityFrameworkCore;
-using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
-namespace ApiFactory.Models.Entities;
+namespace Backend.Models.Entities;
 
-// таблица для хранения аккаунтов пользователей
-[EntityTypeConfiguration(typeof(AccountConfiguration))]
+// User account table
+[EntityTypeConfiguration(typeof(UserConfiguration))]
 public class Account : ISoftDelete
 {
-    // ИД
     public int Id { get; set; }
-
-    // логин
+    // Login validity check
     [Required(ErrorMessage = "Логин обязателен")]
     public string Login { get; set; } = string.Empty;
-
-    // пароль 
+    // Password compliance check
     [Required]
     [RegularExpression(@"^[a-zA-Z0-9]+$",
         ErrorMessage = "Пароль должен содержать только латинские буквы и цифры.")]
-    
+
     public string Password { get; set; } = string.Empty;
 
 
-    // пользователь
+    // User data
     public int UserId { get; set; }
     public User User { get; set; } = null!;
 
 
     public List<Review> Reviews = [];
-    
 
-    // мягкое удаление
+    // Soft delete flags
     public bool IsDeleted { get; set; }
     public DateTimeOffset? DeletedAt { get; set; }
 
-} // Account
-
+}

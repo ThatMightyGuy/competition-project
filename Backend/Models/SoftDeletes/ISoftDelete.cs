@@ -1,6 +1,5 @@
 ﻿namespace Backend.Models.SoftDeletes;
 
-// интерфейс для мягкого удаления
 public interface ISoftDelete
 {
     public bool IsDeleted { get; set; }
@@ -9,6 +8,5 @@ public interface ISoftDelete
     {
         IsDeleted = false;
         DeletedAt = null;
-    } // Undo
-} // ISoftDelete
-
+    }
+}
