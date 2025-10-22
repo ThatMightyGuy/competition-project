@@ -1,4 +1,4 @@
-namespace Backend.Models;
+namespace Backend.Models.Entity;
 
 public enum Role
 {
@@ -7,4 +7,4 @@ public enum Role
     Moderator,
     Admin,
     Owner
-}
+} // Role
